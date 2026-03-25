@@ -1,77 +1,173 @@
-const API_URL = "http://localhost:8000/api/v1";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-export type Upload = any;
-export type Report = any;
-export type Pattern = any;
-export type SuspiciousAddress = any;
-export type GraphData = any;
-export type User = any;
+// In CodeSandbox/Vite, configure this in `.env` as:
+// VITE_API_BASE_URL=https://<your-backend-host>
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8000").replace(/\/$/, "");
+const API_V1 = `${API_BASE_URL}/api/v1`;
 
-const fetchApi = async (path: string, options: RequestInit = {}) => {
-  const url = `${API_URL}${path}`;
-  const response = await fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(`API error: ${response.statusText}`);
-  }
-  return response.json();
+export type User = {
+  id?: string;
+  name: string;
+  email: string;
+  avatar?: string;
 };
 
+export type Upload = {
+  id: string;
+  filename?: string;
+  name?: string;
+  created_at?: string;
+  date?: string;
+  uploadedAt?: string;
+  status?: "completed" | "processing" | "failed" | string;
+  records?: number;
+};
+
+export type Report = {
+  id: string;
+  report_type: string;
+  created_at: string;
+  status: "completed" | "processing" | "failed" | string;
+  format: "pdf" | "excel" | "csv" | "json" | string;
+};
+
+export type Pattern = {
+  id: string;
+  type: string;
+  description?: string;
+  severity: string;
+  confidence: number; // 0..1
+  transactions?: number;
+  addresses?: string[];
+  detectedAt?: string;
+};
+
+export type SuspiciousAddress = {
+  address: string;
+  transactionCount: number;
+  totalAmount?: number;
+  firstSeen?: string;
+  lastSeen?: string;
+  riskLevel: string;
+  suspiciousScore: number; // 0..1
+  flags?: string[];
+};
+
+export type GraphData = any;
+
+function getToken(): string | null {
+  try {
+    return localStorage.getItem("authToken");
+  } catch {
+    return null;
+  }
+}
+
+async function fetchJson<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const token = getToken();
+  const res = await fetch(`${API_V1}${path}`, {
+    ...options,
+    headers: {
+      Accept: "application/json",
+      ...(options.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
+    },
+  });
+
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(text || `API error (${res.status})`);
+  }
+  return (await res.json()) as T;
+}
+
+async function fetchBlob(path: string, options: RequestInit = {}): Promise<Blob> {
+  const token = getToken();
+  const res = await fetch(`${API_V1}${path}`, {
+    ...options,
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...(options.headers || {}),
+    },
+  });
+  if (!res.ok) throw new Error(`Download failed (${res.status})`);
+  return await res.blob();
+}
+
 export const dashboardApi = {
-  getStats: () => fetchApi("/dashboard/stats"),
+  getStats: () => fetchJson<any>("/dashboard/stats"),
 };
 
 export const uploadApi = {
   uploadFile: async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
-    const response = await fetch(`${API_URL}/upload`, {
-      method: "POST",
-      body: formData,
-    });
-    return response.json();
+    return await fetchJson<any>("/uploads", { method: "POST", body: formData });
   },
-  getHistory: (page = 1, limit = 50, status?: string) => 
-    fetchApi(`/upload/history?page=${page}&limit=${limit}${status ? `&status=${status}` : ''}`),
+  getHistory: (page = 1, limit = 50, status?: string) =>
+    fetchJson<any>(`/uploads?page=${page}&page_size=${limit}${status ? `&status=${encodeURIComponent(status)}` : ""}`),
 };
 
 export const analysisApi = {
-  getPatterns: (uploadId?: string) => fetchApi(`/analysis/patterns${uploadId ? `?uploadId=${uploadId}` : ''}`),
-  getSuspiciousAddresses: (uploadId?: string, page = 1, limit = 100) => 
-    fetchApi(`/analysis/addresses?page=${page}&limit=${limit}${uploadId ? `&uploadId=${uploadId}` : ''}`),
+  getPatterns: (uploadId?: string) =>
+    fetchJson<any>(`/analysis/patterns${uploadId ? `?upload_id=${encodeURIComponent(uploadId)}` : ""}`).then(
+      (r) => (r?.patterns || r || []) as Pattern[]
+    ),
+  getSuspiciousAddresses: (uploadId?: string, _ignored?: any, page = 1, limit = 100) =>
+    fetchJson<any>(
+      `/analysis/suspicious-addresses?page=${page}&page_size=${limit}${uploadId ? `&upload_id=${encodeURIComponent(uploadId)}` : ""}`
+    ).then((r) => ({ addresses: r?.addresses || r?.data || [], pagination: r?.pagination || {} })),
 };
 
 export const graphApi = {
-  getSuspiciousSubgraph: (uploadId: string, topK: number, hop: number) => 
-    fetchApi(`/graph/subgraph?uploadId=${uploadId}&topK=${topK}&hop=${hop}`),
+  getSuspiciousSubgraph: (uploadId: string, topK: number, hop: number) =>
+    fetchJson<any>(
+      `/graph/suspicious-subgraph?upload_id=${encodeURIComponent(uploadId)}&top_k=${topK}&hop=${hop}`
+    ),
 };
 
 export const reportsApi = {
-  getHistory: (userId?: string, page = 1, limit = 20) => fetchApi(`/reports?page=${page}&limit=${limit}`),
-  generate: (data: any) => fetchApi("/reports/generate", {
-    method: "POST",
-    body: JSON.stringify(data),
-  }),
-  downloadReport: async (reportId: string) => {
-    const response = await fetch(`${API_URL}/reports/${reportId}/download`);
-    return response.blob();
-  },
+  getHistory: (_uploadId?: string, page = 1, limit = 20) =>
+    fetchJson<any>(`/reports?page=${page}&page_size=${limit}`).then((r) => ({
+      reports: r?.reports || r?.items || [],
+      pagination: r?.pagination || {},
+    })),
+  generate: (data: any) =>
+    fetchJson<any>("/reports/generate", { method: "POST", body: JSON.stringify(data) }),
+  downloadReport: async (reportId: string) => fetchBlob(`/reports/${encodeURIComponent(reportId)}/download`),
 };
 
 export const settingsApi = {
-  getApiKeys: async () => [],
-  createApiKey: async (name: string) => ({ id: "1", name, key: "mock-key", created_at: new Date().toISOString() }),
-  deleteApiKey: async (id: string) => {},
-  updateSettings: async (settings: any) => {},
+  getApiKeys: async () => fetchJson<any>("/settings/api-keys").then((r) => r?.api_keys || r?.keys || r || []),
+  createApiKey: async (name: string) =>
+    fetchJson<any>("/settings/api-keys", { method: "POST", body: JSON.stringify({ name }) }),
+  deleteApiKey: async (id: string) =>
+    fetchJson<any>(`/settings/api-keys/${encodeURIComponent(id)}`, { method: "DELETE" }),
+  updateSettings: async (settings: any) =>
+    fetchJson<any>("/settings/update", { method: "POST", body: JSON.stringify(settings) }),
 };
 
 export const authApi = {
-  getGoogleAuthUrl: async () => ({ authorization_url: "http://localhost:5173/cryptoflow/auth/callback?code=mock" }),
-  handleCallback: async (code: string, provider: string) => ({ user: { name: "Demo User", email: "demo@smurfpakad.ai" }, access_token: "mock_token" }),
-  logout: async () => {},
+  getGoogleAuthUrl: async () => {
+    try {
+      return await fetchJson<{ authorization_url: string }>("/auth/google/url");
+    } catch {
+      // Fallback for sandbox demos: stay on the current host (no localhost).
+      const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost:5173";
+      return { authorization_url: `${origin}/cryptoflow/auth/callback?code=mock` };
+    }
+  },
+  handleCallback: async (code: string, provider: string) =>
+    fetchJson<any>("/auth/callback", {
+      method: "POST",
+      body: JSON.stringify({ code, provider }),
+    }),
+  logout: async () => {
+    try {
+      await fetchJson<any>("/auth/logout", { method: "POST" });
+    } catch {
+      // ignore
+    }
+  },
 };
