@@ -1,11 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Slider } from "@/components/ui/slider";
+import { DashboardLayout } from "/src/components/DashboardLayout";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "/src/components/ui/card";
+import { Button } from "/src/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/src/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "/src/components/ui/tabs";
+import { Badge } from "/src/components/ui/badge";
+import { Slider } from "/src/components/ui/slider";
 import { 
   Grid3X3, 
   RefreshCw, 
@@ -17,8 +17,8 @@ import {
   Zap,
   Info
 } from "lucide-react";
-import { analysisApi, uploadApi, graphApi } from "@/lib/api";
-import { toast } from "@/components/ToastNotification";
+import { analysisApi, uploadApi, graphApi } from "/src/lib/api";
+import { toast } from "/src/components/ToastNotification";
 
 interface HeatmapCell {
   x: number;

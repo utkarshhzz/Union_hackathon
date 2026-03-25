@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
+import { DashboardLayout } from "/src/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "/src/components/ui/card";
+import { Button } from "/src/components/ui/button";
+import { Input } from "/src/components/ui/input";
+import { Label } from "/src/components/ui/label";
+import { Switch } from "/src/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "/src/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/src/components/ui/select";
+import { Separator } from "/src/components/ui/separator";
 import { Bell, Shield, Database, Mail, Loader2, Copy, Check, Plus, Trash2 } from "lucide-react";
-import { settingsApi } from "@/lib/api";
+import { settingsApi } from "/src/lib/api";
 
 interface ApiKey {
   id: string;

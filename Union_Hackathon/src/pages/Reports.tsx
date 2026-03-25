@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { DashboardLayout } from "@/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { DashboardLayout } from "/src/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "/src/components/ui/card";
+import { Button } from "/src/components/ui/button";
+import { Badge } from "/src/components/ui/badge";
 import { FileText, Download, Calendar, Filter, Loader2, AlertTriangle } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { reportsApi, uploadApi, type Report } from "@/lib/api";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "/src/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/src/components/ui/select";
+import { reportsApi, uploadApi, type Report } from "/src/lib/api";
 
 export default function Reports() {
   const [reports, setReports] = useState<Report[]>([]);

@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '/src/components/ui/button';
+import { Input } from '/src/components/ui/input';
 import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea } from '/src/components/ui/scroll-area';
 
 interface Message {
   id: string;

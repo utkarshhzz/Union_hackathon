@@ -1,6 +1,6 @@
-import { DashboardLayout } from "@/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { DashboardLayout } from "/src/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "/src/components/ui/card";
+import { Badge } from "/src/components/ui/badge";
 import { Layers, Repeat, BarChart3, Moon, UserSearch } from "lucide-react";
 
 const patterns = [
