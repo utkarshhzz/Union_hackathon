@@ -1,5 +1,5 @@
 
-import { Button } from "src/components/ui/button";
+import { Button } from "./ui/button";
 import { steps } from "../data/howItWorks";
 
 

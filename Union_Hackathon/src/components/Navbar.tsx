@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button } from 'src/components/ui/button';
+import { Button } from './ui/button';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AuthButton from './AuthButton';
-import { useTheme } from 'src/contexts/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

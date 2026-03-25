@@ -5,7 +5,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger
-} from "src/components/ui/accordion";
+} from "./ui/accordion";
 
 import { faqItems } from '../data/faqData';
 

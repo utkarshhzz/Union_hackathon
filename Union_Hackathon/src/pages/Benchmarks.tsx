@@ -1,8 +1,8 @@
-import { DashboardLayout } from "src/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "src/components/ui/card";
-import { Badge } from "src/components/ui/badge";
+import { DashboardLayout } from "../components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
 import { TrendingUp, Target, Clock, Award, Cpu, Database } from "lucide-react";
-import { Progress } from "src/components/ui/progress";
+import { Progress } from "../components/ui/progress";
 
 export default function Benchmarks() {
   const performanceMetrics = [

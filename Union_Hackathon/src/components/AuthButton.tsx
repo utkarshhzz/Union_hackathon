@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button } from 'src/components/ui/button';
+import { Button } from './ui/button';
 import {
   Dialog,
   DialogContent,
@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from 'src/components/ui/dialog';
+} from './ui/dialog';
 import { LogIn, User, LogOut, Loader2 } from 'lucide-react';
-import { authApi, type User as UserType } from 'src/lib/api';
+import { authApi, type User as UserType } from '../lib/api';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
 

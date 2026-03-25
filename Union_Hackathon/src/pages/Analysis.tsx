@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { DashboardLayout } from "src/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "src/components/ui/card";
-import { Badge } from "src/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "src/components/ui/tabs";
+import { DashboardLayout } from "../components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { AlertTriangle, TrendingUp, Users, Clock, Brain, Link as LinkIcon, Activity, CheckCircle, Loader2 } from "lucide-react";
-import { Button } from "src/components/ui/button";
-import { Progress } from "src/components/ui/progress";
+import { Button } from "../components/ui/button";
+import { Progress } from "../components/ui/progress";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { analysisApi, uploadApi, type Pattern, type SuspiciousAddress } from "src/lib/api";
+import { analysisApi, uploadApi, type Pattern, type SuspiciousAddress } from "../lib/api";
 
 export default function Analysis() {
   const [searchParams] = useSearchParams();

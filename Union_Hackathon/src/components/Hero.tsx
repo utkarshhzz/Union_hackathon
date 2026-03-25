@@ -1,7 +1,7 @@
 
 import { ArrowRight, ArrowUpRight, ChevronRight } from 'lucide-react';
-import { Button } from "src/components/ui/button";
-import graphImage from 'src/images/laundering_graph.png';
+import { Button } from "./ui/button";
+import graphImage from '../images/laundering_graph.png';
 
 const Hero = () => {
   return (

@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useTheme } from "src/contexts/ThemeContext";
+import { useTheme } from "../contexts/ThemeContext";
 import { GitBranch, Target, Grid3X3 } from "lucide-react";
 
 interface DashboardLayoutProps {

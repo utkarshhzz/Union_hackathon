@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Button } from 'src/components/ui/button';
+import { Button } from './ui/button';
 import { Check } from 'lucide-react';
 
 interface PricingPlan {
@@ -12,7 +12,7 @@ interface PricingPlan {
   buttonText: string;
 }
 
-import { pricingPlans } from 'src/data/pricingData'; // Adjust the import path as necessary
+import { pricingPlans } from '../data/pricingData'; // Adjust the import path as necessary
 
 
 const Pricing = () => {
