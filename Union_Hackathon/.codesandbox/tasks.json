@@ -6,7 +6,7 @@
     },
     {
       "name": "setup backend venv",
-      "command": "cd Backend && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip && pip install -r requirements.txt"
+      "command": "cd Backend && python3 -m venv .venv && . .venv/bin/activate && python -m pip install --upgrade pip setuptools wheel && pip install torch numpy pandas scikit-learn matplotlib networkx fastapi uvicorn[standard] pydantic pydantic-settings python-multipart python-jose[cryptography] passlib[bcrypt] httpx supabase openpyxl xlsxwriter reportlab aiofiles python-dotenv && (pip install torch-geometric || echo 'torch-geometric install skipped; backend will run with reduced ML features')"
     }
   ],
   "tasks": [
