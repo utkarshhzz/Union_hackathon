@@ -150,16 +150,10 @@ export const settingsApi = {
 
 export const authApi = {
   getGoogleAuthUrl: async () => {
-    try {
-      return await fetchJson<{ authorization_url: string }>("/auth/google/url");
-    } catch {
-      // Fallback for sandbox demos: stay on the current host (no localhost).
-      const origin = typeof window !== "undefined" ? window.location.origin : "http://localhost:5173";
-      return { authorization_url: `${origin}/cryptoflow/auth/callback?code=mock` };
-    }
+    return await fetchJson<{ authorization_url: string }>("/auth/google");
   },
   handleCallback: async (code: string, provider: string) =>
-    fetchJson<any>("/auth/callback", {
+    fetchJson<any>("/auth/login", {
       method: "POST",
       body: JSON.stringify({ code, provider }),
     }),
