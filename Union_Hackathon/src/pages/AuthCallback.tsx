@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { authApi } from '/src/lib/api';
+import { authApi } from 'src/lib/api';
 import { Loader2 } from 'lucide-react';
 
 export default function AuthCallback() {

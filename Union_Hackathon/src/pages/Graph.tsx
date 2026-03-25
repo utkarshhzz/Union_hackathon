@@ -1,14 +1,14 @@
-import { DashboardLayout } from "/src/components/DashboardLayout";
-import { Card, CardContent } from "/src/components/ui/card";
-import { Button } from "/src/components/ui/button";
+import { DashboardLayout } from "src/components/DashboardLayout";
+import { Card, CardContent } from "src/components/ui/card";
+import { Button } from "src/components/ui/button";
 import { Network, Upload as UploadIcon, RefreshCw, Loader2, AlertTriangle, Download } from "lucide-react";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import UltraGraphVisualization from "/src/components/UltraGraphVisualization";
-import { graphApi, uploadApi, type GraphData } from "/src/lib/api";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "/src/components/ui/select";
-import { ErrorBoundary } from "/src/components/ErrorBoundary";
-import { toast } from "/src/components/ToastNotification";
+import UltraGraphVisualization from "src/components/UltraGraphVisualization";
+import { graphApi, uploadApi, type GraphData } from "src/lib/api";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "src/components/ui/select";
+import { ErrorBoundary } from "src/components/ErrorBoundary";
+import { toast } from "src/components/ToastNotification";
 
 export default function Graph() {
   const [searchParams] = useSearchParams();

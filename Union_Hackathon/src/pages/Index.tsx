@@ -1,18 +1,18 @@
 
 import { useEffect } from 'react';
-import Navbar from '/src/components/Navbar';
-import Hero from '/src/components/Hero';
-import Features from '/src/components/Features';
-import HowItWorks from '/src/components/HowItWorks';
-import Testimonials from '/src/components/Testimonials';
-import Pricing from '/src/components/Pricing';
-import FAQ from '/src/components/FAQ';
-import CTA from '/src/components/CTA';
-import Footer from '/src/components/Footer';
-import ScrollToTop from '/src/components/ScrollToTop';
-import ChatBot from '/src/components/ChatBot';
-import ThreeBackground from '/src/components/ThreeBackground';
-import useScrollAnimation from '/src/utils/useScrollAnimation';
+import Navbar from 'src/components/Navbar';
+import Hero from 'src/components/Hero';
+import Features from 'src/components/Features';
+import HowItWorks from 'src/components/HowItWorks';
+import Testimonials from 'src/components/Testimonials';
+import Pricing from 'src/components/Pricing';
+import FAQ from 'src/components/FAQ';
+import CTA from 'src/components/CTA';
+import Footer from 'src/components/Footer';
+import ScrollToTop from 'src/components/ScrollToTop';
+import ChatBot from 'src/components/ChatBot';
+import ThreeBackground from 'src/components/ThreeBackground';
+import useScrollAnimation from 'src/utils/useScrollAnimation';
 
 const Index = () => {
   // Initialize scroll animations

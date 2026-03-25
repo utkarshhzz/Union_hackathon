@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { DashboardLayout } from "/src/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "/src/components/ui/card";
+import { DashboardLayout } from "src/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "src/components/ui/card";
 import { Activity, AlertTriangle, TrendingUp, Users, Loader2 } from "lucide-react";
-import { Button } from "/src/components/ui/button";
+import { Button } from "src/components/ui/button";
 import { Link } from "react-router-dom";
-import { useTheme } from "/src/contexts/ThemeContext";
-import ThreeBackground from "/src/components/ThreeBackground";
-import { dashboardApi, uploadApi, type Upload } from "/src/lib/api";
+import { useTheme } from "src/contexts/ThemeContext";
+import ThreeBackground from "src/components/ThreeBackground";
+import { dashboardApi, uploadApi, type Upload } from "src/lib/api";
 
 interface DashboardStats {
   totalTransactions: number;

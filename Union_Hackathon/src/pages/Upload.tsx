@@ -1,13 +1,13 @@
 import { useState, useRef } from "react";
-import { DashboardLayout } from "/src/components/DashboardLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "/src/components/ui/card";
-import { Button } from "/src/components/ui/button";
+import { DashboardLayout } from "src/components/DashboardLayout";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "src/components/ui/card";
+import { Button } from "src/components/ui/button";
 import { Upload as UploadIcon, FileText, AlertCircle, CheckCircle2, X, Table, AlertTriangle, Loader2 } from "lucide-react";
-import { Progress } from "/src/components/ui/progress";
-import { Alert, AlertDescription } from "/src/components/ui/alert";
+import { Progress } from "src/components/ui/progress";
+import { Alert, AlertDescription } from "src/components/ui/alert";
 import { useNavigate } from "react-router-dom";
-import { Badge } from "/src/components/ui/badge";
-import { uploadApi, type Upload as UploadType } from "/src/lib/api";
+import { Badge } from "src/components/ui/badge";
+import { uploadApi, type Upload as UploadType } from "src/lib/api";
 
 export default function Upload() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
